@@ -1,8 +1,7 @@
 ---
 applications:
 - name: locabike
-  memory: 128mb
-  disk_quota: 256MB
-  random-route: true
-  buildpack: python_buildpack
-  command: python main.py
+  host: locabike
+  domain: hcf.euwest1.stackato.net
+  services:
+  - mysql
