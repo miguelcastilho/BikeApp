@@ -1,0 +1,32 @@
+<div class="col-md-6 bike-listing" ng-repeat="bike in bikes">
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-md-6">
+					<img ng-src="{{ bike.photo ? bike.photo : 'no_image.svg' }}" style="width: 100%">
+				</div>
+				<div class="col-md-6">
+					<p>{{ bike.description }}</p>
+
+					<dl>
+						<dt>Serial number</dt>
+						<dd>{{ bike.serial }}</dd>
+
+						<dt>Colour</dt>
+						<dd>{{ bike.colour }}</dd>
+
+						<dt>Location</dt>
+						<dd>Lat {{ bike.lat }}; Lon: {{ bike.lon }}</dd>
+
+						<dt>Brand</dt>
+						<dd>{{ bike.brand }}</dd>
+
+						<dt>Locked</dt>
+						<dd>{{ bike.locked ? "Yes" : "No" }}</dd>
+					</dl>
+
+					<a class="btn btn-lg btn-primary" href="#!/report-seen/{{ bike.id }}" role="button">I have seen this bike!</a>
+				</div>
+			</div>
+		</div>
+	</div>

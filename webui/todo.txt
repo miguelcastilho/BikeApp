@@ -1,0 +1,15 @@
+- Replace BikeApp with real app name
+
+- Minify JS
+
+- Resize service?
+
+- Check how to use html in component
+
+- Better location input
+
+- Write app description:
+	- Requirements:
+		- Recent browser with SVG support
+	- Mention mobile interface (maybe screenshots)
+
