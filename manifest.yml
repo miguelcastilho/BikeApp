@@ -3,4 +3,3 @@ applications:
 - name: locabike
   host: locabike
   domain: hcf.euwest1.stackato.net
-  command: python main.py
