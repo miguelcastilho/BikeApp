@@ -1,0 +1,7 @@
+---
+applications:
+- name: storage_service
+  host: storage_service
+  domain: hcf.euwest1.stackato.net
+  services:
+  - test-mysql
