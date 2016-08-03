@@ -10,20 +10,24 @@ db = SqliteDatabase('bicycles.db')
 
 class Bicycle(peewee.Model):
     bicycle_id = peewee.PrimaryKeyField()
-    make = peewee.CharField()
+    make = peewee.TextField()
     serial_no = peewee.TextField()
     description = peewee.TextField()
     colour = peewee.TextField()
     owner_contact = peewee.TextField()
     locked = peewee.BooleanField(default=False)
     date_stolen = peewee.DateTimeField()
+    photo = peewee.TextField()
     found = peewee.BooleanField(default=False)
+    map_long = peewee.DecimalField()
+    map_lat = peewee.DecimalField()
     class Meta:
         database = db
 
 class BicycleSighting(peewee.Model):
     bicycle = ForeignKeyField(Bicycle, to_field="bicycle_id")
-    location = peewee.TextField()
+    map_long = peewee.DecimalField()
+    map_lat = peewee.DecimalField()
     description = peewee.TextField()
     date_seen = peewee.DateTimeField()
     viewers_contact = peewee.TextField()
@@ -32,6 +36,7 @@ class BicycleSighting(peewee.Model):
     
 #Bicycle.drop_table()
 Bicycle.create_table(True)
+#BicycleSighting.drop_table()
 BicycleSighting.create_table(True)
 
 def date_handler(obj):
