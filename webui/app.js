@@ -39,7 +39,7 @@ bikeApp.component('bikeList', {
           url: storageServiceUrl + "/List",
         }).then(function success(resp) {
           for (index = 0; index < resp.data.length; ++index) {
-            d = resp.data[index].mpn;
+            d = resp.data[index].Bicycle;
 
             bike = {
               id: d.bicycle_id,
@@ -118,7 +118,7 @@ bikeApp.component('reportStolen', {
 
       $scope.processForm = function() {
         var data = {
-          "make": $scope.formData.brand,
+          "brand": $scope.formData.brand,
           "serial_no": $scope.formData.serial,
           "description": $scope.formData.description,
           "colour": $scope.formData.colour,
@@ -162,6 +162,17 @@ bikeApp.component('reportSeen', {
 
       $scope.processForm = function() {
         console.log($routeParams.bikeId)
+
+        $http({
+          method: 'POST',
+          url: storageServiceUrl + "/ViewStolenReport",
+          data: {"bicycle_id": $routeParams.bikeId},
+          headers: {'Content-Type': 'application/json'}
+        }).then(function success(resp) {
+          console.log(resp)
+        }, function error(resp) {
+          alert("Error saving: " + resp);
+        });
 
         // get email via bike id
         var email = "jonas.pfannschmidt@gmail.com"
