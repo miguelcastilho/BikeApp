@@ -14,13 +14,16 @@ def createStolenReport():
     if not request.json or not 'owner_contact' in request.json:
         abort(400)
     bicycle = {
-        'make': request.json['make'],
+        'make': request.json['brand'],
         'serial_no': request.json.get('serial_no', ""),
         'description': request.json.get('description', ""),
         'colour': request.json.get('colour', ""),
         'owner_contact': request.json.get('owner_contact', ""),
         'locked': request.json['locked'],
         'date_stolen': request.json.get('date_stolen', ""),
+        'map_long': request.json.get('long', ""),
+        'map_lat': request.json.get('lat', ""),
+        'map_lat': request.json.get('lat', ""),
         'found': False
     }
     return Bike.create_stolenRecord(bicycle)
@@ -31,7 +34,8 @@ def createBicycleSighting():
         abort(400)
     bicycle_sighting = {
         'bicycle': request.json['bicycle_id'],
-        'location': request.json.get('location', ""),
+        'map_long': request.json.get('long', ""),
+        'map_lat': request.json.get('lat', ""),
         'description': request.json.get('description', ""),
         'viewers_contact': request.json.get('viewers_contact', ""),
         'date_seen': request.json.get('date_seen', "")
