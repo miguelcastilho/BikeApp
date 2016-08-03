@@ -51,6 +51,12 @@ def listReports():
 def listAllReports():
     #stolenList = Bike.listReports()
     return Bike.listAllReports()
-    
+
+@app.route('/DeleteReport', methods=['POST'])
+def deleteReport():
+    #stolenList = Bike.listReports()
+    Bike.deleteStolenReport(request.json['bicycle_id'])
+    return 'successfully deleted'
+
 if __name__ == '__main__':
     app.run(debug=True)

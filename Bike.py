@@ -58,6 +58,10 @@ def report_Finding(bicycle_sighting_dict):
     bicycle_sighting.save()
     return json.dumps(model_to_dict(bicycle_sighting), default=date_handler)
 
+def deleteStolenReport(bicycle_id):
+    bicycle = Bicycle.get(Bicycle.bicycle_id == bicycle_id)
+    bicycle.delete_instance()
+
 def listReports():
     stolen_list = []
     for bicycle in Bicycle.filter(found=False):
