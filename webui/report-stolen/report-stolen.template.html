@@ -11,6 +11,11 @@
 				</div>
 
 				<div class="form-group">
+					<label for="email">Email Address</label>
+					<input type="email" id="email" class="form-control" placeholder="You will get an email when somebody reports your bike as seen." ng-model="formData.email">
+				</div>
+
+				<div class="form-group">
 					<label for="time">When was it stolen?</label>
 					<input type="datetime-local" id="time" class="form-control" ng-model="formData.date"></textarea>
 				</div>
@@ -33,17 +38,17 @@
 
 				<div class="form-group">
 					<label for="serial">Serial number</label>
-					<input type="text" id="serial" class="form-control" ng-model="formData.serial">
+					<input type="text" id="serial" class="form-control" ng-model="formData.serial" placeholder="The serial number can typically be found at the bottom of your bike.">
 				</div>
 
 				<div class="form-group">
 					<label for="colour">Colour</label>
-					<input type="text" id="colour" class="form-control" ng-model="formData.colour">
+					<input type="text" id="colour" class="form-control" ng-model="formData.colour" placeholder="The main colour(s) of your bike.">
 				</div>
 
 				<div class="form-group">
 					<label for="brand">Brand</label>
-					<input type="text" id="brand" class="form-control" ng-model="formData.brand">
+					<input type="text" id="brand" class="form-control" ng-model="formData.brand" placeholder="Which brand is your bike?">
 				</div>
 
 				<div class="form-group">

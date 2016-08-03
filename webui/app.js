@@ -14,8 +14,11 @@ bikeApp.config(['$locationProvider', '$routeProvider',
         when('/report-stolen', {
           template: '<report-stolen></report-stolen>'
         }).
-        when('/thanks-for-report', {
-          templateUrl: 'thanks/thanks.template.html'
+        when('/thanks-stolen', {
+          templateUrl: 'thanks/thanks-stolen.template.html'
+        }).
+        when('/thanks-seen', {
+          templateUrl: 'thanks/thanks-seen.template.html'
         }).
         when('/report-seen/:bikeId', {
           template: '<report-seen></report-seen>'
@@ -73,6 +76,7 @@ bikeApp.component('reportStolen', {
       // Defaults
       $scope.formData.date = null;
       $scope.formData.description = '';
+      $scope.formData.contact = "";
       $scope.formData.locked = true;
       $scope.formData.photo = '';
       $scope.formData.serial = '';
@@ -87,7 +91,7 @@ bikeApp.component('reportStolen', {
       }
 
       $scope.processForm = function() {
-        $location.path('thanks-for-report');
+        $location.path('thanks-stolen');
 
       };
     }
@@ -95,7 +99,7 @@ bikeApp.component('reportStolen', {
 
 bikeApp.component('reportSeen', {
   templateUrl: 'report-seen/report-seen.template.html',
-  controller: function ($scope) {
+  controller: function ($scope, $location, $routeParams) {
     $scope.location = {latitude: 53.270962, longitude: -9.062691};
 
     $scope.formData = {};
@@ -110,7 +114,8 @@ bikeApp.component('reportSeen', {
       }
 
       $scope.processForm = function() {
-        $location.path('thanks-for-report');
+        console.log($routeParams.bikeId)
+        $location.path('thanks-seen');
 
       };
     }
