@@ -66,6 +66,17 @@ bikeApp.component('reportStolen', {
 
       $scope.location = {latitude: 53.270962, longitude: -9.062691};
 
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position){
+          $scope.$apply(function(){
+            $scope.location = {
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude
+            }
+          });
+        });
+      }
+
       $scope.formData = {};
       // Defaults
       $scope.formData.date = null;
