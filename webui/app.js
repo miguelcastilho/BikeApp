@@ -1,4 +1,6 @@
 var bikeApp = angular.module('bikeApp', ['ngRoute', 'angular-location-picker']);
+var emailServiceUrl = "http://email-service.hcf.euwest1.stackato.net";
+var storageServiceUrl = "http://email-service.hcf.euwest1.stackato.net";
 
 bikeApp.config(['$locationProvider', '$routeProvider',
     function config($locationProvider, $routeProvider) {
@@ -99,7 +101,7 @@ bikeApp.component('reportStolen', {
 
 bikeApp.component('reportSeen', {
   templateUrl: 'report-seen/report-seen.template.html',
-  controller: function ($scope, $location, $routeParams) {
+  controller: function ($scope, $location, $routeParams, $http) {
     $scope.location = {latitude: 53.270962, longitude: -9.062691};
 
     $scope.formData = {};
@@ -115,6 +117,28 @@ bikeApp.component('reportSeen', {
 
       $scope.processForm = function() {
         console.log($routeParams.bikeId)
+
+        // get email via bike id
+        var email = "jonas.pfannschmidt@gmail.com"
+
+        var data = {
+          "lon": $scope.formData.longitude,
+          "lat": $scope.formData.latitude,
+          "description": $scope.formData.description,
+          "recipient": email
+        }
+
+        $http({
+          method: 'POST',
+          url: emailServiceUrl,
+          data: data,
+          headers: {'Content-Type': 'application/json'}
+        }).then(function success(resp) {
+          console.log("Email sent!")
+        }, function error(resp) {
+          alert("Error sending email: " + resp);
+        });
+
         $location.path('thanks-seen');
 
       };

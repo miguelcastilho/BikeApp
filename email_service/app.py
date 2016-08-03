@@ -33,7 +33,7 @@ def root():
     data = request.get_json()
 
     lon = data['lon']
-    lat = data['lon']
+    lat = data['lat']
     description = data['description']
     recipient = data['recipient']
     user = os.getenv("GMAIL_USER")
@@ -48,6 +48,13 @@ def root():
     logging.info("Successfully sent email to {}".format(recipient))
 
     return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
+
+@app.after_request
+def after_request(response):
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+    response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
+    return response
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)
