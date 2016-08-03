@@ -5,3 +5,7 @@ div.bike-listing {
 div.main-content {
 	margin-bottom: 5%;
 }
+
+.google-map {
+  height: 80vh;
+}

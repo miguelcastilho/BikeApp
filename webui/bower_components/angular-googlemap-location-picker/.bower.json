@@ -1,0 +1,14 @@
+{
+  "name": "angular-googlemap-location-picker",
+  "homepage": "https://github.com/sesubash/angular-googlemap-location-picker",
+  "_release": "478773ce3c",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "478773ce3c3d8d42612a0050a4a6a51ac11f4f8a"
+  },
+  "_source": "https://github.com/sesubash/angular-googlemap-location-picker.git",
+  "_target": "*",
+  "_originalSource": "angular-googlemap-location-picker",
+  "_direct": true
+}

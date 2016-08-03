@@ -1,4 +1,4 @@
-var bikeApp = angular.module('bikeApp', ['ngRoute']);
+var bikeApp = angular.module('bikeApp', ['ngRoute', 'angular-location-picker']);
 
 bikeApp.config(['$locationProvider', '$routeProvider',
     function config($locationProvider, $routeProvider) {
@@ -13,6 +13,9 @@ bikeApp.config(['$locationProvider', '$routeProvider',
         }).
         when('/report-stolen', {
           template: '<report-stolen></report-stolen>'
+        }).
+        when('/thanks-for-report', {
+          templateUrl: 'thanks/thanks.template.html'
         }).
         when('/report-seen/:bikeId', {
           template: '<report-seen></report-seen>'
@@ -62,15 +65,56 @@ bikeApp.component('bikeList', {
 
 bikeApp.component('reportStolen', {
     templateUrl: 'report-stolen/report-stolen.template.html',
-    controller: function ($scope) {
+    controller: function ($scope, $location) {
+
+      $scope.location = {latitude: 53.270962, longitude: -9.062691};
+
+      $scope.formData = {};
+      // Defaults
+      $scope.formData.date = null;
+      $scope.formData.description = '';
+      $scope.formData.locked = true;
+      $scope.formData.photo = '';
+      $scope.formData.serial = '';
+      $scope.formData.colour = '';
+      $scope.formData.brand = '';
+      $scope.formData.longitude = $scope.location.longitude;
+      $scope.formData.latitude = $scope.location.latitude;
+
+      $scope.onLocationChange = function(location){
+        $scope.formData.longitude = location.longitude;
+        $scope.formData.latitude = location.latitude;
+      }
+
+      $scope.processForm = function() {
+        $location.path('thanks-for-report');
+
+      };
     }
   });
 
 bikeApp.component('reportSeen', {
-    templateUrl: 'report-seen/report-seen.template.html',
-    controller: function ($scope) {
+  templateUrl: 'report-seen/report-seen.template.html',
+  controller: function ($scope) {
+    $scope.location = {latitude: 53.270962, longitude: -9.062691};
+
+    $scope.formData = {};
+      // Defaults
+      $scope.formData.description = '';
+      $scope.formData.longitude = $scope.location.longitude;
+      $scope.formData.latitude = $scope.location.latitude;
+
+      $scope.onLocationChange = function(location){
+        $scope.formData.longitude = location.longitude;
+        $scope.formData.latitude = location.latitude;
+      }
+
+      $scope.processForm = function() {
+        $location.path('thanks-for-report');
+
+      };
     }
-  });
+});
 
 bikeApp.directive('bsActiveLink', ['$location', function ($location) {
 return {
