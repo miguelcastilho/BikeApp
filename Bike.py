@@ -71,7 +71,7 @@ def listReports():
     for bicycle in Bicycle.filter(found=False):
         stolen_list.append(model_to_dict(bicycle))
     print stolen_list
-    return json.dumps([dict(mpn=pn) for pn in stolen_list], default=date_handler)
+    return json.dumps([dict(Bicycle=pn) for pn in stolen_list], default=date_handler)
 
 def listAllReports():
     list = []
