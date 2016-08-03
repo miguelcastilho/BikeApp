@@ -4,9 +4,13 @@ import peewee
 from peewee import *
 from playhouse.shortcuts import model_to_dict, dict_to_model
 import json
+import os
 
-db = SqliteDatabase('bicycles.db')
-#myDB = pw.MySQLDatabase("mydb", host="mydb.crhauek3cxfw.us-west-2.rds.amazonaws.com", port=3306, user="user", passwd="password")
+#db = SqliteDatabase('bicycles.db')
+if 'VCAP_SERVICES' in os.environ:
+    services = json.loads(os.getenv('VCAP_SERVICES'))
+    credentials = services['mysql-dev'][0]['credentials']
+    db = peewee.MySQLDatabase(credentials['database'], host=credentials['host'], port=int(credentials['port']), user=credentials['user'], passwd=credentials['password'])
 
 class Bicycle(peewee.Model):
     bicycle_id = peewee.PrimaryKeyField()
