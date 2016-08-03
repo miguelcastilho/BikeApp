@@ -10,7 +10,7 @@ import os
 if 'VCAP_SERVICES' in os.environ:
     services = json.loads(os.getenv('VCAP_SERVICES'))
     credentials = services['mysql-dev'][0]['credentials']
-    db = peewee.MySQLDatabase(credentials['database'], host=credentials['database']+'.'+credentials['host'], port=credentials['port'], user=credentials['user'], passwd=credentials['password'])
+    db = peewee.MySQLDatabase(credentials['database'], host=credentials['host'], port=int(credentials['port']), user=credentials['user'], passwd=credentials['password'])
 
 class Bicycle(peewee.Model):
     bicycle_id = peewee.PrimaryKeyField()
@@ -34,7 +34,6 @@ class BicycleSighting(peewee.Model):
     class Meta:
         database = db
 
-db.connect()
 #Bicycle.drop_table()
 Bicycle.create_table(True)
 BicycleSighting.create_table(True)
