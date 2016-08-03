@@ -41,18 +41,39 @@ bikeApp.component('bikeList', {
           for (index = 0; index < resp.data.length; ++index) {
             d = resp.data[index].mpn;
 
-            $scope.bikes.push({
+            bike = {
               id: d.bicycle_id,
               description: d.description,
               serial: d.serial_no,
               colour: d.colour,
               // TODO: photo, lat, lon
-              lat: 0,
-              lon: 0,
+              lat: 39.90,
+              lon: 116.40,
               brand: d.make,
               locked: d.locked,
-              photo: null
-            });
+              photo: null,
+              country: null
+            };
+
+            $scope.bikes.push(bike);
+
+
+            (function(frozen_bike) {
+              $http({
+                method: 'GET',
+                url: 'https://api.havenondemand.com/1/api/sync/mapcoordinates/v1?targets=country&lat=' + bike.lat + '&lon=' + bike.lon + '&apikey=5ec0d106-9f58-4019-8078-ea8ea1cc7282'
+              }).then(function success(resp) {
+                if (resp.data.matches.length > 0) {
+                  // $scope.$apply(function(){
+                    frozen_bike.country = resp.data.matches[0].name;
+                    console.log(bike.country);
+                    console.log(index)
+                    $scope.$applyAsync();
+                  // });
+                }
+              });
+            })(bike);
+
           }
         }, function error(resp) {
           alert("Error sending email: " + resp);

@@ -16,7 +16,7 @@
 						<dd>{{ bike.colour }}</dd>
 
 						<dt>Location</dt>
-						<dd><a href="http://www.google.com/maps/place/{{ bike.lat }},{{ bike.lon }}" target="_blank">Open map in new window</a>
+						<dd><a href="http://www.google.com/maps/place/{{ bike.lat }},{{ bike.lon }}" target="_blank">Open map in new window</a> ({{ bike.country ? bike.country : 'Unknown country'}})</dd>
 
 						<dt>Brand</dt>
 						<dd>{{ bike.brand }}</dd>
