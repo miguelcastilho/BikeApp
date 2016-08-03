@@ -3,3 +3,5 @@ applications:
 - name: miguel
   host: miguel
   domain: hcf.euwest1.stackato.net
+  services:
+  - test-mysql

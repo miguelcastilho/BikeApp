@@ -1,11 +1,21 @@
 #!flask/bin/python
 from flask import Flask, request
-import Bike 
+import os
+import Bike
+import json
 
 app = Flask(__name__)
 
 @app.route('/')
 def index():
+    if 'VCAP_SERVICES' in os.environ:
+        services = json.loads(os.getenv('VCAP_SERVICES'))
+        credentials = services['mysql-dev'][0]['credentials']
+        print 'DATABASE: ' + credentials['database']
+        print 'HOST: ' + credentials['database'] + '.' + credentials['host']
+        print 'PORT: ' + credentials['port']
+        print 'USER: ' + credentials['user']
+        print 'PASSWORD: ' + credentials['password']
     return "Hello, World!"
 
 @app.route('/AddReport', methods=['POST'])
@@ -49,4 +59,4 @@ def listAllReports():
     return Bike.listAllReports()
     
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=int(os.getenv("PORT")), debug=True)
