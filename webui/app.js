@@ -46,12 +46,11 @@ bikeApp.component('bikeList', {
               description: d.description,
               serial: d.serial_no,
               colour: d.colour,
-              // TODO: photo, lat, lon
-              lat: 39.90,
-              lon: 116.40,
+              photo: d.photo,
+              lat: d.map_lat,
+              lon: d.map_long,
               brand: d.make,
               locked: d.locked,
-              photo: null,
               country: null
             };
 
@@ -120,7 +119,9 @@ bikeApp.component('reportStolen', {
           "owner_contact": $scope.formData.contact,
           "locked": $scope.formData.locked,
           "date_stolen": $scope.formData.date,
-          // TODO: photo, lon, lat
+          "photo": $scope.formData.photo,
+          "map_long": $scope.formData.longitude,
+          "map_lat": $scope.formData.latitude
         }
 
         $http({
@@ -164,31 +165,30 @@ bikeApp.component('reportSeen', {
           params: {"bicycle_id": $routeParams.bikeId},
           headers: {'Content-Type': 'application/json'}
         }).then(function success(resp) {
-          console.log(resp)
+          var email = resp.data.owner_contact;
+
+          var data = {
+            "lon": $scope.formData.longitude,
+            "lat": $scope.formData.latitude,
+            "description": $scope.formData.description,
+            "recipient": email
+          }
+
+          $http({
+            method: 'POST',
+            url: emailServiceUrl,
+            data: data,
+            headers: {'Content-Type': 'application/json'}
+          }).then(function success(resp) {
+            console.log("Email sent!")
+          }, function error(resp) {
+            alert("Error sending email: " + resp);
+          });
+
         }, function error(resp) {
           alert("Error saving: " + resp);
         });
 
-        // get email via bike id
-        var email = "jonas.pfannschmidt@gmail.com"
-
-        var data = {
-          "lon": $scope.formData.longitude,
-          "lat": $scope.formData.latitude,
-          "description": $scope.formData.description,
-          "recipient": email
-        }
-
-        $http({
-          method: 'POST',
-          url: emailServiceUrl,
-          data: data,
-          headers: {'Content-Type': 'application/json'}
-        }).then(function success(resp) {
-          console.log("Email sent!")
-        }, function error(resp) {
-          alert("Error sending email: " + resp);
-        });
 
         $location.path('thanks-seen');
 
