@@ -38,6 +38,17 @@ def createBicycleSighting():
     }
     return Bike.report_Finding(bicycle_sighting)
 
+@app.route('/ViewStolenReport')
+def viewStolenReport():
+    #stolenList = Bike.listReports()
+    return Bike.viewStolenReport(request.json['bicycle_id'])
+
+
+@app.route('/DeleteReport', methods=['POST'])
+def deleteReport():
+    #stolenList = Bike.listReports()
+    Bike.deleteStolenReport(request.json['bicycle_id'])
+    return 'successfully deleted'
 
 @app.route('/List')
 def listReports():
