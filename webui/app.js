@@ -1,6 +1,6 @@
 var bikeApp = angular.module('bikeApp', ['ngRoute', 'angular-location-picker']);
 var emailServiceUrl = "http://email-service.hcf.euwest1.stackato.net";
-var storageServiceUrl = "http://email-service.hcf.euwest1.stackato.net";
+var storageServiceUrl = "http://storage-service.hcf.euwest1.stackato.net";
 
 bikeApp.config(['$locationProvider', '$routeProvider',
     function config($locationProvider, $routeProvider) {
@@ -31,46 +31,38 @@ bikeApp.config(['$locationProvider', '$routeProvider',
 
 bikeApp.component('bikeList', {
     templateUrl: 'bike-list/bike-list.template.html',
-    controller: function ($scope) {
-        $scope.bikes = [
-        {
-          id: 1,
-          description: 'A black pepperbike. I left it in front of the Kingshead. When I came out after a few pints it was gone.',
-          serial: '123-abcd',
-          colour: 'Black',
-          lat: 58.2,
-          lon: 13,
-          brand: 'Pepperbikes',
-          locked: true,
-          photo: "http://www.pepperbikes.de/media/catalog/product/cache/1/image/574x359/9df78eab33525d08d6e5fb8d27136e95/t/r/trekkingrad_tp1411st_gb_frontal.jpg"
-        }, {
-          id: 2,
-          description: 'A blue pepperbike. I left it in front of the Crane Bar. When I came out after a few shots it was gone.',
-          serial: '456-abcd',
-          colour: 'Blue',
-          lat: 58.5,
-          lon: 13.1,
-          brand: 'Pepperbikes',
-          locked: false,
-          photo: "http://www.pepperbikes.de/media/catalog/product/cache/1/image/574x359/9df78eab33525d08d6e5fb8d27136e95/t/r/trekkingrad_tp1411st_gb_frontal.jpg"
-        }, {
-          id: 3,
-          description: 'A red pepperbike. I left it in front of Roisin Dubh. When I came out after a few glasses it was gone.',
-          serial: '789-abcd',
-          colour: 'Red',
-          lat: 58.4,
-          lon: 13.3,
-          brand: 'Pepperbikes',
-          locked: true,
-          photo: null
-        }
-      ];
+    controller: function ($scope, $http) {
+        $scope.bikes = []
+
+        $http({
+          method: 'GET',
+          url: storageServiceUrl + "/List",
+        }).then(function success(resp) {
+          for (index = 0; index < resp.data.length; ++index) {
+            d = resp.data[index].mpn;
+
+            $scope.bikes.push({
+              id: d.bicycle_id,
+              description: d.description,
+              serial: d.serial_no,
+              colour: d.colour,
+              // TODO: photo, lat, lon
+              lat: 0,
+              lon: 0,
+              brand: d.make,
+              locked: d.locked,
+              photo: null
+            });
+          }
+        }, function error(resp) {
+          alert("Error sending email: " + resp);
+        });
     }
   });
 
 bikeApp.component('reportStolen', {
     templateUrl: 'report-stolen/report-stolen.template.html',
-    controller: function ($scope, $location) {
+    controller: function ($scope, $location, $http) {
 
       $scope.location = {latitude: 53.270962, longitude: -9.062691};
 
@@ -93,8 +85,29 @@ bikeApp.component('reportStolen', {
       }
 
       $scope.processForm = function() {
-        $location.path('thanks-stolen');
+        var data = {
+          "make": $scope.formData.brand,
+          "serial_no": $scope.formData.serial,
+          "description": $scope.formData.description,
+          "colour": $scope.formData.colour,
+          "owner_contact": $scope.formData.contact,
+          "locked": $scope.formData.locked,
+          "date_stolen": $scope.formData.date,
+          // TODO: photo, lon, lat
+        }
 
+        $http({
+          method: 'POST',
+          url: storageServiceUrl + "/AddReport",
+          data: data,
+          headers: {'Content-Type': 'application/json'}
+        }).then(function success(resp) {
+          console.log("Saved")
+        }, function error(resp) {
+          alert("Error saving: " + resp);
+        });
+
+        $location.path('thanks-stolen');
       };
     }
   });
