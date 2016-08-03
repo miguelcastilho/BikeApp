@@ -10,20 +10,24 @@ db = SqliteDatabase('bicycles.db')
 
 class Bicycle(peewee.Model):
     bicycle_id = peewee.PrimaryKeyField()
-    make = peewee.CharField()
+    make = peewee.TextField()
     serial_no = peewee.TextField()
     description = peewee.TextField()
     colour = peewee.TextField()
     owner_contact = peewee.TextField()
     locked = peewee.BooleanField(default=False)
     date_stolen = peewee.DateTimeField()
+    photo = peewee.TextField()
     found = peewee.BooleanField(default=False)
+    map_long = peewee.DecimalField()
+    map_lat = peewee.DecimalField()
     class Meta:
         database = db
 
 class BicycleSighting(peewee.Model):
     bicycle = ForeignKeyField(Bicycle, to_field="bicycle_id")
-    location = peewee.TextField()
+    map_long = peewee.DecimalField()
+    map_lat = peewee.DecimalField()
     description = peewee.TextField()
     date_seen = peewee.DateTimeField()
     viewers_contact = peewee.TextField()
@@ -66,11 +70,11 @@ def listReports():
     for bicycle in Bicycle.filter(found=False):
         stolen_list.append(model_to_dict(bicycle))
     print stolen_list
-    return json.dumps([dict(mpn=pn) for pn in stolen_list], default=date_handler)
+    return json.dumps([dict(Bicycle=pn) for pn in stolen_list], default=date_handler)
 
 def listAllReports():
     list = []
     for bicycle in Bicycle.select():
         list.append(model_to_dict(bicycle))
     #print list
-    return json.dumps([dict(mpn=pn) for pn in list], default=date_handler)
+    return json.dumps([dict(Bicycle=pn) for pn in list], default=date_handler)
