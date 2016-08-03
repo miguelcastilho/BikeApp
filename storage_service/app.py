@@ -45,7 +45,8 @@ def createBicycleSighting():
 @app.route('/ViewStolenReport')
 def viewStolenReport():
     #stolenList = Bike.listReports()
-    return Bike.viewStolenReport(request.json['bicycle_id'])
+    id = request.args.get('bicycle_id')
+    return Bike.viewStolenReport(id)
 
 
 @app.route('/DeleteReport', methods=['POST'])
