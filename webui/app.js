@@ -120,8 +120,8 @@ bikeApp.component('reportStolen', {
           "locked": $scope.formData.locked,
           "date_stolen": $scope.formData.date,
           "photo": $scope.formData.photo,
-          "map_long": $scope.formData.longitude,
-          "map_lat": $scope.formData.latitude
+          "long": $scope.formData.longitude,
+          "lat": $scope.formData.latitude
         }
 
         $http({
