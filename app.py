@@ -1,8 +1,11 @@
 #!flask/bin/python
 from flask import Flask, request
 import Bike 
+import os
 
 app = Flask(__name__)
+
+port = int(os.getenv("PORT", 9000))
 
 @app.route('/')
 def index():
@@ -65,4 +68,4 @@ def deleteReport():
     return 'successfully deleted'
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=port)
