@@ -64,12 +64,7 @@ bikeApp.component('bikeList', {
                 url: 'https://api.havenondemand.com/1/api/sync/mapcoordinates/v1?targets=country&lat=' + bike.lat + '&lon=' + bike.lon + '&apikey=5ec0d106-9f58-4019-8078-ea8ea1cc7282'
               }).then(function success(resp) {
                 if (resp.data.matches.length > 0) {
-                  // $scope.$apply(function(){
-                    frozen_bike.country = resp.data.matches[0].name;
-                    console.log(bike.country);
-                    console.log(index)
-                    $scope.$applyAsync();
-                  // });
+                  frozen_bike.country = resp.data.matches[0].name;
                 }
               });
             })(bike);
@@ -164,9 +159,9 @@ bikeApp.component('reportSeen', {
         console.log($routeParams.bikeId)
 
         $http({
-          method: 'POST',
+          method: 'GET',
           url: storageServiceUrl + "/ViewStolenReport",
-          data: {"bicycle_id": $routeParams.bikeId},
+          params: {"bicycle_id": $routeParams.bikeId},
           headers: {'Content-Type': 'application/json'}
         }).then(function success(resp) {
           console.log(resp)
