@@ -23,7 +23,7 @@ def createStolenReport():
         'date_stolen': request.json.get('date_stolen', ""),
         'map_long': request.json.get('long', ""),
         'map_lat': request.json.get('lat', ""),
-        'map_lat': request.json.get('lat', ""),
+        'photo': request.json.get('photo', ""),
         'found': False
     }
     return Bike.create_stolenRecord(bicycle)
