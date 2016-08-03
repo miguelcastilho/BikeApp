@@ -46,5 +46,34 @@ Content-Length: 217
 Server: Werkzeug/0.11.10 Python/2.7.6
 Date: Wed, 03 Aug 2016 14:22:46 GMT
 
-[{"mpn": {"owner_contact": "086123456", "locked": true, "description": "description of bike", "colour": "black", "serial_no": "1234sfdsf", "bicycle_id": 1, "found": false, "make": "mountain bike", "date_stolen": ""}}]j
+[{"mpn": {"owner_contact": "086123456", "locked": true, "description": "description of bike", "colour": "black", "serial_no": "1234sfdsf", "bicycle_id": 1, "found": false, "make": "mountain bike", "date_stolen": ""}}]
 
+# List All
+curl -i -H "Content-Type: application/json" -X GET http://localhost:5000/ListAll
+HTTP/1.0 200 OK
+Content-Type: text/html; charset=utf-8
+Content-Length: 217
+Server: Werkzeug/0.11.10 Python/2.7.6
+Date: Wed, 03 Aug 2016 14:22:46 GMT
+
+[{"mpn": {"owner_contact": "086123456", "locked": true, "description": "description of bike", "colour": "black", "serial_no": "1234sfdsf", "bicycle_id": 1, "found": false, "make": "mountain bike", "date_stolen": ""}}]
+
+# Delete Report
+curl -i -H "Content-Type: application/json" -X POST -d '{"bicycle_id":"1"}' http://localhost:5000/DeleteReport
+HTTP/1.0 200 OK
+Content-Type: text/html; charset=utf-8
+Content-Length: 20
+Server: Werkzeug/0.11.10 Python/2.7.6
+Date: Wed, 03 Aug 2016 17:32:38 GMT
+
+successfully deleted
+
+# View Stolen Report
+curl -i -H "Content-Type: application/json" -X GET -d '{"bicycle_id":"1"}' http://localhost:5000/ViewStolenReport
+HTTP/1.0 200 OK
+Content-Type: text/html; charset=utf-8
+Content-Length: 275
+Server: Werkzeug/0.11.10 Python/2.7.6
+Date: Wed, 03 Aug 2016 17:45:39 GMT
+
+{"owner_contact": "086123456", "locked": true, "description": "description of bike", "map_lat": null, "photo": "http://www.google.ie", "colour": "black", "serial_no": "hfjhj23sfdsf", "bicycle_id": 1, "found": false, "map_long": null, "make": "hybrid bike", "date_stolen": ""}
