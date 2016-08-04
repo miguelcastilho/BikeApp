@@ -1,7 +1,33 @@
 # BikeApp
 With BikeApp users can report stolen bikes. If other users see the stolen bike, they can send a message to the owner to inform them of the location of the bike.
 
-## Workflow:
+## Deploy to Cloud Foundry
+Clone the project:
+```sh
+$ git clone https://github.com/miguelcastilho/BikeApp.git
+$ cd BikeApp
+```
+
+To deploy the storage service, first create a MySQL service instance named **mysql** and then push the app:
+```sh
+$ cf create-service mysql-dev default mysql
+$ cd storage_service
+$ cf push
+```
+
+Deploy the email service:
+```sh
+$ cd email_service
+$ cf push
+```
+
+Deploy the webui service:
+```sh
+$ cd webui
+$ cf push
+```
+
+## Workflow
 1. Open http://webui.hcf.euwest1.stackato.net in **Chrome** (sorry, other browsers are not supported);
 2. Click on **Report a bike as stolen**, fill in all the details and click **Submit**:
    * Example url for a photo: https://upload.wikimedia.org/wikipedia/commons/4/41/Left_side_of_Flying_Pigeon.jpg
