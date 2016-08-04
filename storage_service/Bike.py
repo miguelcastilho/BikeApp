@@ -63,22 +63,30 @@ def report_Finding(bicycle_sighting_dict):
 
 def viewStolenReport(bicycle_id):
     bicycle = Bicycle.get(Bicycle.bicycle_id == bicycle_id)
-    return json.dumps(model_to_dict(bicycle), default=date_handler)
+    return json.dumps(convert_decimals(bicycle), default=date_handler)
 
 def deleteStolenReport(bicycle_id):
     bicycle = Bicycle.get(Bicycle.bicycle_id == bicycle_id)
     bicycle.delete_instance()
 
+def convert_decimals(bicycle):
+    d = model_to_dict(bicycle)
+
+    # This is an ugly hack because I'm tired
+    d['map_lat'] = float(d['map_lat'])
+    d['map_long'] = float(d['map_long'])
+
+    return d
+
 def listReports():
     stolen_list = []
     for bicycle in Bicycle.filter(found=False):
-        stolen_list.append(model_to_dict(bicycle))
-    print stolen_list
+        stolen_list.append(convert_decimals(bicycle))
     return json.dumps([dict(Bicycle=pn) for pn in stolen_list], default=date_handler)
 
 def listAllReports():
     list = []
     for bicycle in Bicycle.select():
-        list.append(model_to_dict(bicycle))
+        list.append(convert_decimals(bicycle))
     #print list
     return json.dumps([dict(Bicycle=pn) for pn in list], default=date_handler)
