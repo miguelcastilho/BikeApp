@@ -1,4 +1,4 @@
-# locabike
+# BikeApp
 
 REST API server based on peewee python module for ORM. API works with json objects.
 
