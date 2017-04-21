@@ -21,6 +21,12 @@ $ cd email_service
 $ cf push
 ```
 
+Set the environment variable to be used by GMAIL to sent emails:
+```
+$ cf set-env email-service GMAIL_USER <gmail_user>
+$ cf set-env email-service GMAIL_PASSWORD <gmail_password>
+```
+
 Deploy the webui service:
 ```sh
 $ cd webui
