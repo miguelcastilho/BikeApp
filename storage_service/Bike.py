@@ -9,6 +9,8 @@ import os
 #db = SqliteDatabase('bicycles.db')
 if 'VCAP_SERVICES' in os.environ:
     services = json.loads(os.getenv('VCAP_SERVICES'))
+    from pprint import pprint
+    pprint(services)
     credentials = services['mysql-dev'][0]['credentials']
     db = peewee.MySQLDatabase(credentials['database'], host=credentials['host'], port=int(credentials['port']), user=credentials['user'], passwd=credentials['password'])
 

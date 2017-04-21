@@ -1,6 +1,6 @@
 var bikeApp = angular.module('bikeApp', ['ngRoute', 'angular-location-picker']);
-var emailServiceUrl = "http://email-service.hcf.euwest1.stackato.net";
-var storageServiceUrl = "http://storage-service.hcf.euwest1.stackato.net";
+var emailServiceUrl = "https://email-service.hcf.hos.galwaycoe.org";
+var storageServiceUrl = "https://storage-service.hcf.hos.galwaycoe.org";
 
 bikeApp.config(['$locationProvider', '$routeProvider',
     function config($locationProvider, $routeProvider) {

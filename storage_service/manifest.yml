@@ -1,7 +1,7 @@
 ---
 applications:
-- name: storage_service
-  host: storage_service
-  domain: hcf.euwest1.stackato.net
+- name: storage-service
+  host: storage-service
+  domain: hcf.hos.galwaycoe.org
   services:
-  - mysql
+  - mysql-dev
