@@ -10,7 +10,7 @@ $ cd BikeApp
 
 To deploy the storage service, first create a MySQL service instance named **mysql** and then push the app:
 ```sh
-$ cf create-service mysql-dev default mysql
+$ cf create-service mysql-dev default mysql-dev
 $ cd storage_service
 $ cf push
 ```
