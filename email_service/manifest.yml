@@ -1,0 +1,5 @@
+---
+applications:
+- name: email-service 
+  host: email-service 
+  domain: hcf.hos.galwaycoe.org

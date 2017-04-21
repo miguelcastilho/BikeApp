@@ -1,0 +1,5 @@
+---
+applications:
+- name: webui
+  host: webui
+  domain: hcf.hos.galwaycoe.org
