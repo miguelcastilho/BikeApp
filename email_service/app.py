@@ -3,6 +3,7 @@ import os
 import smtplib
 import json
 import logging
+import gmail
 
 def send_email(user, pwd, recipient, subject, body):
     gmail_user = user
@@ -16,12 +17,19 @@ def send_email(user, pwd, recipient, subject, body):
     # Prepare actual message
     message = """From: %s\nTo: %s\nSubject: %s\n\n%s
     """ % (FROM, ", ".join(TO), SUBJECT, TEXT)
-    server = smtplib.SMTP("smtp.gmail.com", 587)
-    server.ehlo()
-    server.starttls()
-    server.login(gmail_user, gmail_pwd)
-    server.sendmail(FROM, TO, message)
-    server.close()
+
+    gmail.send_gmail(recipient, subject, body)
+#    try:
+#    	server = smtplib.SMTP("smtp.gmail.com", 587)
+#	server.ehlo()
+#	server.starttls()
+#	server.login(gmail_user, gmail_pwd)
+#	server.sendmail(FROM, TO, message)
+#	server.close()
+#	print 'successfully sent the mail'
+#    except:
+#	print 'failed to send mail'
+
 
 
 app = Flask(__name__)
