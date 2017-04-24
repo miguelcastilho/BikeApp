@@ -70,7 +70,8 @@ bikeApp.component('bikeList', {
 
           }
         }, function error(resp) {
-          alert("Error sending email: " + resp);
+	  console.debug(resp);
+          alert("Error loading bikes: " + resp);
         });
     }
   });
