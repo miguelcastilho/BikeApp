@@ -59,5 +59,4 @@ $ cf push
 * email-service:
   * Sends email to the owner of a bicycle when it was reported as seen;
   * Python application using Flask;
-  * Uses Gmail SMTP server to send emails;
-  * Gmail Account can be configured via environment variables.
+  * Uses Gmail API to send emails;
