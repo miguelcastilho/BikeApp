@@ -8,7 +8,7 @@ $ git clone https://github.com/miguelcastilho/BikeApp.git
 $ cd BikeApp
 ```
 
-To deploy the storage service, first create a MySQL service instance named **mysql** and then push the app:
+To deploy the storage service, first create a MySQL service instance named **mysql-dev** and then push the app:
 ```sh
 $ cf create-service mysql-dev default mysql-dev
 $ cd storage_service
@@ -31,6 +31,23 @@ Deploy the webui service:
 ```sh
 $ cd webui
 $ cf push
+```
+
+## Deploy using Docker
+Deploy the storage service:
+```sh
+$ docker run --name mysql -e MYSQL_ROOT_PASSWORD=mysql -d -e MYSQL_DATABASE=bike -e MYSQL_USER=bike -e MYSQL_PASSWORD=bike mysql
+$ docker run -e VCAP_SERVICES='{"mysql-dev":[{"credentials":{"database":"bike","host":"mysql","password":"bike","port":"3306","user":"bike"}}]}' -d --name storage_service --link mysql:mysql capzulu/storage_service
+```
+
+Deploy the email service:
+```sh
+$ docker run -d --name email_service capzulu/email_service
+```
+
+Deploy the webui service:
+```sh
+$ docker run -d -p 3000:80 -p 3001:443 --name webui capzulu/webui
 ```
 
 ## Workflow
