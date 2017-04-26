@@ -2,9 +2,9 @@ var http = require("http"),
     url = require("url"),
     path = require("path"),
     fs = require("fs"),
-    mustache = require("./lib/mustache"),
-    keyprocessor = require("./lib/keyprocessor"),
-    sysinfo = require('./lib/sysinfo'),
+    mustache = require("./_lib/mustache"),
+    keyprocessor = require("./_lib/keyprocessor"),
+    sysinfo = require('./_lib/sysinfo'),
     port = process.env.PORT || 8888;
 
 http.createServer(function(request, response) {
