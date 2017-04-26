@@ -2,4 +2,9 @@
 applications:
 - name: webui
   host: webui
+  buildpack: nodejs_buildpack
   domain: hcf.hos.galwaycoe.org
+  stack: cflinuxfs2
+  env:
+    email_url: https://email-service.hcf.hos.galwaycoe.org
+    storage_url: https://storage-service.hcf.hos.galwaycoe.org

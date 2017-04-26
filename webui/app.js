@@ -1,10 +1,23 @@
+
 var bikeApp = angular.module('bikeApp', ['ngRoute', 'angular-location-picker']);
-var emailServiceUrl = "https://email-service.hcf.hos.galwaycoe.org";
-var storageServiceUrl = "https://storage-service.hcf.hos.galwaycoe.org";
+var emailServiceUrl = "https://email";
+var storageServiceUrl = "https://storage";
 
 bikeApp.config(['$locationProvider', '$routeProvider',
     function config($locationProvider, $routeProvider) {
       $locationProvider.hashPrefix('!');
+
+      $.get('/env', function(res) {
+            console.log('----------------test----------------------');
+            console.log(res);
+            console.log('get var');
+            console.log($(res).find("#email_url")); 
+            var email = $(res).find("#email_url")[0].textContent;
+            emailServiceUrl = email;
+            var storage = $(res).find("#storage_url")[0].textContent;
+            storageServiceUrl = storage;
+        });
+
 
       $routeProvider.
         when('/bikes', {
